@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HOMI | Saved</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>        :root {
+            --primary: #0875e1;
+            --primary-dark: #0561bd;
+            --light: #eef6ff;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e3e8ef;
+            --bg: #f5f8fc;
+            --navy: #14214f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(8,117,225,.45);
+            outline-offset: 2px;
+        }
+
+
+
+        .btn {
+            height: 40px;
+            padding: 0 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+            transition: .2s;
+        }
+
+        .btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn.solid {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn.solid:hover {
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-height: 420px;
+            color: #fff;
+            padding: 26px 5% 120px;
+            border-radius: 0 0 32px 32px;
+            background: #075fbd;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            background: #062f5f;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.02);
+            transition: opacity 1s ease,transform 10s ease;
+            pointer-events: none;
+        }
+
+        .hero-video.active {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background: linear-gradient(90deg,rgba(2,25,58,.88) 0%,rgba(4,62,122,.68) 45%,rgba(8,117,225,.34) 100%);
+        }
+
+        .hero-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            animation: rise .7s ease both;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px,5vw,54px);
+            line-height: 1.06;
+            letter-spacing: -1.4px;
+        }
+
+        .hero p {
+            margin-top: 12px;
+            max-width: 520px;
+            line-height: 1.6;
+            color: rgba(255,255,255,.86);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1240px;
+            margin: 0 auto 52px;
+            position: relative;
+        }
+
+        .hero-logo {
+            display: block;
+            padding: 10px 18px;
+            background: rgba(255,255,255,.96);
+            border-radius: 22px;
+            box-shadow: 0 14px 34px rgba(0,0,0,.3);
+            animation: logoFloat 4.5s ease-in-out infinite;
+        }
+
+        .hero-logo:hover {
+            animation-play-state: paused;
+        }
+
+        .hero-logo img {
+            display: block;
+            width: 156px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        @keyframes logoFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 6px;
+        }
+
+        .hero-actions .btn {
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-actions .btn:not(.solid) {
+            background: rgba(255,255,255,.14);
+            border-color: rgba(255,255,255,.4);
+            color: #fff;
+        }
+
+        .hero-actions .btn:not(.solid):hover {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .hero-actions .btn.solid {
+            background: #fff;
+            border-color: #fff;
+            color: var(--primary);
+        }
+
+        .hero-actions .btn.solid:hover {
+            background: var(--light);
+            color: var(--primary-dark);
+        }
+
+        @media(max-width:650px) {
+            .hero-top {
+                margin-bottom: 38px;
+            }
+            .hero-logo {
+                padding: 8px 14px;
+                border-radius: 18px;
+            }
+            .hero-logo img {
+                width: 118px;
+                height: 60px;
+            }
+            .hero-actions .btn {
+                height: 40px;
+                padding: 0 14px;
+            }
+        }
+
+
+        .page {
+            max-width: 1240px;
+            margin: -56px auto 0;
+            padding: 0 4% 90px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gate {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 40px;
+            align-items: center;
+            padding: 52px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: 0 22px 60px rgba(23,32,51,.12);
+        }
+
+        .gate::before {
+            content: "";
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            right: -140px;
+            top: -160px;
+            border-radius: 50%;
+            background: radial-gradient(circle,rgba(8,117,225,.12),transparent 70%);
+        }
+
+        .gate-copy {
+            position: relative;
+        }
+
+        .gate-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 22px;
+            border-radius: 20px;
+            background: var(--light);
+            color: var(--primary);
+            display: grid;
+            place-items: center;
+            font-size: 26px;
+        }
+
+        .gate h2 {
+            font-size: clamp(26px,3.4vw,38px);
+            line-height: 1.12;
+            letter-spacing: -1px;
+            margin-bottom: 14px;
+        }
+
+        .gate p {
+            max-width: 460px;
+            margin-bottom: 28px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .gate-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .gate-actions .btn {
+            height: 52px;
+            padding: 0 26px;
+            font-size: 14.5px;
+            border-radius: 13px;
+        }
+
+        .gate-actions .btn.solid {
+            box-shadow: 0 10px 24px rgba(8,117,225,.28);
+        }
+
+        .stack {
+            position: relative;
+            height: 340px;
+        }
+
+        .demo-card {
+            position: absolute;
+            width: 250px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 16px 38px rgba(23,32,51,.14);
+            transition: transform .4s ease;
+        }
+
+        .demo-card:nth-child(1) {
+            left: 2%;
+            top: 38px;
+            transform: rotate(-6deg);
+        }
+
+        .demo-card:nth-child(2) {
+            right: 0;
+            top: 0;
+            transform: rotate(5deg);
+            z-index: 1;
+        }
+
+        .demo-card:nth-child(3) {
+            left: 20%;
+            top: 126px;
+            transform: rotate(-1deg);
+            z-index: 2;
+        }
+
+        .stack:hover .demo-card:nth-child(1) {
+            transform: rotate(-9deg) translateX(-10px);
+        }
+
+        .stack:hover .demo-card:nth-child(2) {
+            transform: rotate(8deg) translateX(10px);
+        }
+
+        .demo-card img {
+            width: 100%;
+            height: 128px;
+            object-fit: cover;
+            display: block;
+            background: #e5e7eb;
+        }
+
+        .demo-card .heart {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #fff;
+            color: #e53935;
+            display: grid;
+            place-items: center;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+        }
+
+        .demo-body {
+            padding: 12px 14px 14px;
+        }
+
+        .demo-body b {
+            display: block;
+            font-size: 14px;
+        }
+
+        .demo-body span {
+            display: block;
+            margin: 2px 0 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .demo-body em {
+            font-style: normal;
+            font-weight: 800;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .perks {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .perk {
+            display: flex;
+            gap: 14px;
+            padding: 22px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .perk i {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            background: var(--light);
+            color: var(--primary);
+            display: grid;
+            place-items: center;
+        }
+
+        .perk h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .perk p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--muted);
+        }
+
+        @media(min-width:901px) {
+            .page {
+                padding-left: max(4%,104px);
+            }
+        }
+
+        @media(max-width:900px) {
+            .gate {
+                grid-template-columns: 1fr;
+                padding: 36px 26px;
+                gap: 26px;
+            }
+            .stack {
+                width: 100%;
+                max-width: 420px;
+                height: 330px;
+                margin: 0 auto;
+            }
+            .perks {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:650px) {
+            .hero {
+                padding: 22px 5% 110px;
+                border-radius: 0 0 24px 24px;
+            }
+            .demo-card {
+                width: 215px;
+            }
+            .gate-actions .btn {
+                flex: 1;
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation: none!important;
+                transition: none!important;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="theme.css">
+    <script src="nav.js"></script>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-video-container">
+        <video class="hero-video active" muted playsinline poster="./assets/image4.jpg"><source src="./assets/video1.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image5.jpg"><source src="./assets/video2.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image6.jpg"><source src="./assets/video3.mp4" type="video/mp4"></video>
+    </div>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-top">
+        <a href="LandingPage.html" class="hero-logo" aria-label="HOMI home"><img src="logo.png" alt="HOMI"></a>
+        <div class="hero-actions">
+            <button class="btn" onclick="location.href='Login.html'">Sign in</button>
+            <button class="btn solid" onclick="location.href='CreateAccount.html'">Sign up</button>
+        </div>
+    </div>
+
+    <div class="hero-inner">
+        <h1>Your saved places</h1>
+        <p>Keep the homes you love in one place and come back to them any time.</p>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="gate">
+        <div class="gate-copy">
+            <div class="gate-icon"><i class="fa-regular fa-heart"></i></div>
+            <h2>Sign in to see your saved listings</h2>
+            <p>Create an account to keep track of the places you like and find them again on any device.</p>
+            <div class="gate-actions">
+                <button class="btn solid" onclick="location.href='Login.html'">Sign in</button>
+                <button class="btn" onclick="location.href='CreateAccount.html'">Create account</button>
+            </div>
+        </div>
+
+        <div class="stack" aria-hidden="true">
+            <div class="demo-card">
+                <img src="./assets/image9.jpg" alt=""><span class="heart"><i class="fa-solid fa-heart"></i></span>
+                <div class="demo-body"><b>Single room self con.</b><span>Rumuola, Port Harcourt</span><em>₦450,000</em> / year</div>
+            </div>
+            <div class="demo-card">
+                <img src="./assets/image8.jpg" alt=""><span class="heart"><i class="fa-solid fa-heart"></i></span>
+                <div class="demo-body"><b>Modern self con.</b><span>GRA Phase 2, Port Harcourt</span><em>₦650,000</em> / year</div>
+            </div>
+            <div class="demo-card">
+                <img src="./assets/image7.jpg" alt=""><span class="heart"><i class="fa-solid fa-heart"></i></span>
+                <div class="demo-body"><b>One bedroom apartment</b><span>Woji, Port Harcourt</span><em>₦850,000</em> / year</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="perks">
+        <div class="perk"><i class="fa-solid fa-bookmark"></i><div><h3>Save in one tap</h3><p>Tap the heart on any listing to keep it.</p></div></div>
+        <div class="perk"><i class="fa-solid fa-mobile-screen"></i><div><h3>Pick up anywhere</h3><p>Sign in on any device and your list is waiting.</p></div></div>
+        <div class="perk"><i class="fa-solid fa-scale-balanced"></i><div><h3>Compare later</h3><p>Shortlist a few places before you decide.</p></div></div>
+    </section>
+
+</main>
+
+<script>
+    const heroVideos = Array.from(document.querySelectorAll(".hero-video"));
+    let current = 0;
+
+    function showHeroVideo(index) {
+        heroVideos.forEach((v, i) => {
+            v.classList.toggle("active", i === index);
+            if (i !== index) { v.pause(); v.currentTime = 0; }
+        });
+        heroVideos[index].currentTime = 0;
+        heroVideos[index].play().catch(() => {});
+    }
+
+    if (heroVideos.length) {
+        showHeroVideo(0);
+        setInterval(() => {
+            current = (current + 1) % heroVideos.length;
+            showHeroVideo(current);
+        }, 10000);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HOMI | Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- apply the saved theme before the page paints (no flash) -->
+    <script>
+        try {
+            if (localStorage.getItem("homi-theme") === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        } catch (e) {}
+    </script>
+
+    <style>
+        :root {
+            --primary: #0875e1;
+            --primary-dark: #0561bd;
+            --light: #eef6ff;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e3e8ef;
+            --bg: #f5f8fc;
+            --card: #ffffff;
+            --soft: #f1f5f9;
+            --navy: #14214f;
+            --shadow: rgba(23, 32, 51, .12);
+        }
+
+        :root[data-theme="dark"] {
+            --primary: #3b9bff;
+            --primary-dark: #6ab4ff;
+            --light: #14263f;
+            --text: #e8eefb;
+            --muted: #94a3b8;
+            --border: #25324a;
+            --bg: #0b1220;
+            --card: #111b2e;
+            --soft: #1a2740;
+            --navy: #3b9bff;
+            --shadow: rgba(0, 0, 0, .45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background .3s ease, color .3s ease;
+        }
+
+        button,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(8, 117, 225, .45);
+            outline-offset: 2px;
+        }
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .btn {
+            height: 40px;
+            padding: 0 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            transition: .2s;
+        }
+
+        .btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn.solid {
+            background: #0875e1;
+            border-color: #0875e1;
+            color: #fff;
+        }
+
+        .btn.solid:hover {
+            background: #0561bd;
+            border-color: #0561bd;
+            color: #fff;
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-height: 380px;
+            color: #fff;
+            padding: 26px 5% 120px;
+            border-radius: 0 0 32px 32px;
+            background: #075fbd;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            background: #062f5f;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.02);
+            transition: opacity 1s ease, transform 10s ease;
+            pointer-events: none;
+        }
+
+        .hero-video.active {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background: linear-gradient(90deg, rgba(2, 25, 58, .88) 0%, rgba(4, 62, 122, .68) 45%, rgba(8, 117, 225, .34) 100%);
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1240px;
+            margin: 0 auto 52px;
+            position: relative;
+        }
+
+        .hero-logo {
+            display: block;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, .96);
+            border-radius: 22px;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, .3);
+            animation: logoFloat 4.5s ease-in-out infinite;
+        }
+
+        .hero-logo:hover {
+            animation-play-state: paused;
+        }
+
+        .hero-logo img {
+            display: block;
+            width: 156px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 6px;
+        }
+
+        .hero-actions .btn {
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-actions .btn:not(.solid) {
+            background: rgba(255, 255, 255, .14);
+            border-color: rgba(255, 255, 255, .4);
+            color: #fff;
+        }
+
+        .hero-actions .btn:not(.solid):hover {
+            background: #fff;
+            color: #0875e1;
+        }
+
+        .hero-actions .btn.solid {
+            background: #fff;
+            border-color: #fff;
+            color: #0875e1;
+        }
+
+        .hero-actions .btn.solid:hover {
+            background: #eef6ff;
+            color: #0561bd;
+        }
+
+        .hero-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            animation: rise .7s ease both;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1.06;
+            letter-spacing: -1.4px;
+        }
+
+        .hero p {
+            margin-top: 12px;
+            max-width: 520px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, .86);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* =========================================
+           PROFILE CARD
+        ========================================= */
+
+        .page {
+            max-width: 1240px;
+            margin: -56px auto 0;
+            padding: 0 4% 90px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            gap: 48px;
+            align-items: center;
+            padding: 52px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: 0 22px 60px var(--shadow);
+            transition: background .3s ease, border-color .3s ease;
+        }
+
+        .profile::before {
+            content: "";
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            right: -140px;
+            top: -160px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(8, 117, 225, .14), transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ---------- left: guest ---------- */
+
+        .guest {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            width: 168px;
+            height: 168px;
+            margin-bottom: 26px;
+            animation: logoFloat 5s ease-in-out infinite;
+        }
+
+        .avatar-wrap::before {
+            content: "";
+            position: absolute;
+            inset: -10px;
+            border-radius: 50%;
+            border: 1px dashed rgba(8, 117, 225, .4);
+            animation: spin 30s linear infinite;
+        }
+
+        .avatar-svg {
+            width: 100%;
+            height: 100%;
+            color: var(--primary);
+            filter: drop-shadow(0 14px 24px rgba(8, 117, 225, .2));
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .guest h2 {
+            font-size: clamp(24px, 3vw, 32px);
+            letter-spacing: -.8px;
+            margin-bottom: 10px;
+        }
+
+        .guest p {
+            max-width: 330px;
+            margin-bottom: 26px;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .guest-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .guest-actions .btn {
+            flex: 1;
+            height: 52px;
+            font-size: 14.5px;
+            border-radius: 13px;
+        }
+
+        .guest-actions .btn.solid {
+            box-shadow: 0 10px 24px rgba(8, 117, 225, .28);
+        }
+
+        /* ---------- right: menu ---------- */
+
+        .menu {
+            position: relative;
+            display: grid;
+            gap: 12px;
+        }
+
+        .row {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: border-color .2s ease, box-shadow .2s ease, background .3s ease;
+        }
+
+        .row:hover {
+            border-color: rgba(8, 117, 225, .4);
+        }
+
+        .row.open {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(8, 117, 225, .14);
+        }
+
+        .row-head {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 18px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            text-align: left;
+        }
+
+        .row-icon {
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            background: var(--light);
+            color: var(--primary);
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+        }
+
+        .row-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-text b {
+            display: block;
+            font-size: 15.5px;
+        }
+
+        .row-text span {
+            display: block;
+            margin-top: 2px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .chev {
+            color: var(--muted);
+            font-size: 13px;
+            transition: transform .3s ease;
+        }
+
+        .row.open .chev {
+            transform: rotate(180deg);
+        }
+
+        /* theme switch */
+
+        .switch {
+            position: relative;
+            width: 52px;
+            height: 30px;
+            flex-shrink: 0;
+            border-radius: 999px;
+            background: #cbd5e1;
+            transition: background .25s ease;
+        }
+
+        .switch::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+            transition: transform .25s ease;
+        }
+
+        .switch.on {
+            background: var(--primary);
+        }
+
+        .switch.on::after {
+            transform: translateX(22px);
+        }
+
+        /* expandable panel */
+
+        .panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows .3s ease;
+        }
+
+        .row.open .panel {
+            grid-template-rows: 1fr;
+        }
+
+        .panel-inner {
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .panel-body {
+            padding: 4px 18px 20px 80px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .panel-body p + p {
+            margin-top: 10px;
+        }
+
+        .panel-body strong {
+            color: var(--text);
+        }
+
+        .setting {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .setting:first-child {
+            border-top: none;
+            padding-top: 4px;
+        }
+
+        .setting label,
+        .setting > span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .setting select {
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--soft);
+            color: var(--text);
+            outline: none;
+        }
+
+        .setting select:focus {
+            border-color: var(--primary);
+        }
+
+        .setting .switch {
+            border: none;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .contact-list a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--soft);
+            color: var(--text);
+            font-weight: 600;
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        .contact-list a:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .contact-list i {
+            width: 18px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .version {
+            margin-top: 4px;
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (min-width: 901px) {
+            .page {
+                padding-left: max(4%, 104px);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .profile {
+                grid-template-columns: 1fr;
+                padding: 36px 24px;
+                gap: 34px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .hero {
+                padding: 22px 5% 110px;
+                border-radius: 0 0 24px 24px;
+            }
+
+            .hero-top {
+                margin-bottom: 38px;
+            }
+
+            .hero-logo {
+                padding: 8px 14px;
+                border-radius: 18px;
+            }
+
+            .hero-logo img {
+                width: 118px;
+                height: 60px;
+            }
+
+            .hero-actions .btn {
+                height: 40px;
+                padding: 0 14px;
+            }
+
+            .avatar-wrap {
+                width: 140px;
+                height: 140px;
+            }
+
+            .row-head {
+                padding: 14px;
+                gap: 13px;
+            }
+
+            .panel-body {
+                padding: 2px 14px 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* =========================================
+           DARK MODE: shared left navigation (nav.js)
+        ========================================= */
+
+        :root[data-theme="dark"] .homi-nav {
+            background: rgba(17, 27, 46, .94);
+            border-color: #25324a;
+        }
+
+        :root[data-theme="dark"] .homi-nav-item {
+            color: #94a3b8;
+        }
+
+        :root[data-theme="dark"] .homi-nav-item:hover,
+        :root[data-theme="dark"] .homi-nav-item.active {
+            background: #14263f;
+            color: #3b9bff;
+        }
+    </style>
+    <link rel="stylesheet" href="theme.css">
+    <script src="nav.js"></script>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-video-container">
+        <video class="hero-video active" muted playsinline poster="./assets/image4.jpg"><source src="./assets/video1.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image5.jpg"><source src="./assets/video2.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image6.jpg"><source src="./assets/video3.mp4" type="video/mp4"></video>
+    </div>
+    <div class="hero-video-overlay"></div>
+
+    <div class="hero-top">
+        <a href="LandingPage.html" class="hero-logo" aria-label="HOMI home"><img src="./assets/Logo2.0.png" alt="HOMI"></a>
+        <div class="hero-actions">
+            <button class="btn" onclick="location.href='Login.html'">Sign in</button>
+            <button class="btn solid" onclick="location.href='CreateAccount.html'">Sign up</button>
+        </div>
+    </div>
+
+    <div class="hero-inner">
+        <h1>Your profile</h1>
+        <p>Manage your account, appearance and settings in one place.</p>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="profile">
+
+        <!-- GUEST -->
+        <div class="guest">
+
+            <div class="avatar-wrap">
+                <svg class="avatar-svg" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Guest profile picture">
+                    <circle cx="80" cy="80" r="76" fill="currentColor" opacity=".1"/>
+                    <circle cx="80" cy="80" r="76" stroke="currentColor" stroke-width="3" opacity=".35"/>
+                    <circle cx="80" cy="62" r="26" fill="currentColor"/>
+                    <path d="M30 128c4-24 25-38 50-38s46 14 50 38a76 76 0 0 1-100 0Z" fill="currentColor"/>
+                </svg>
+            </div>
+
+            <h2>Welcome to HOMI</h2>
+            <p>Sign in to save places, message agents and manage your account.</p>
+
+            <div class="guest-actions">
+                <button class="btn solid" onclick="location.href='Login.html'">Sign in</button>
+                <button class="btn" onclick="location.href='CreateAccount.html'">Sign up</button>
+            </div>
+
+        </div>
+
+        <!-- MENU -->
+        <div class="menu">
+
+            <!-- DARK / LIGHT -->
+            <div class="row">
+                <button class="row-head" id="themeToggle" role="switch" aria-checked="false">
+                    <span class="row-icon"><i class="fa-solid fa-moon" id="themeIcon"></i></span>
+                    <span class="row-text">
+                        <b>Dark mode</b>
+                        <span id="themeLabel">Light mode is on</span>
+                    </span>
+                    <span class="switch" id="themeSwitch" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <!-- SETTINGS -->
+            <div class="row" data-row>
+                <button class="row-head" aria-expanded="false">
+                    <span class="row-icon"><i class="fa-solid fa-gear"></i></span>
+                    <span class="row-text">
+                        <b>Settings</b>
+                        <span>Language, currency and alerts</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down chev"></i>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="panel-body">
+                            <div class="setting">
+                                <label for="langSelect">Language</label>
+                                <select id="langSelect" data-pref="homi-lang">
+                                    <option value="en">English</option>
+                                    <option value="fr">Français</option>
+                                    <option value="yo">Yorùbá</option>
+                                    <option value="ig">Igbo</option>
+                                    <option value="ha">Hausa</option>
+                                </select>
+                            </div>
+                            <div class="setting">
+                                <label for="currencySelect">Currency</label>
+                                <select id="currencySelect" data-pref="homi-currency">
+                                    <option value="NGN">Naira (₦)</option>
+                                    <option value="USD">US Dollar ($)</option>
+                                    <option value="GBP">Pound (£)</option>
+                                </select>
+                            </div>
+                            <div class="setting">
+                                <span>Notifications</span>
+                                <button class="switch" id="notifySwitch" role="switch" aria-checked="true" aria-label="Notifications"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div class="row" data-row>
+                <button class="row-head" aria-expanded="false">
+                    <span class="row-icon"><i class="fa-solid fa-circle-info"></i></span>
+                    <span class="row-text">
+                        <b>About Homi</b>
+                        <span>Who we are and what we do</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down chev"></i>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="panel-body">
+                            <p><strong>HOMI</strong> is your one-stop hub for hotels, property buying, selling and renting. We connect people with spaces they love.</p>
+                            <p>Browse homes, short-lets and hotels, see them on the map, and message agents and owners directly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div class="row" data-row>
+                <button class="row-head" aria-expanded="false">
+                    <span class="row-icon"><i class="fa-solid fa-headset"></i></span>
+                    <span class="row-text">
+                        <b>Contact us</b>
+                        <span>We'd love to hear from you</span>
+                    </span>
+                    <i class="fa-solid fa-chevron-down chev"></i>
+                </button>
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="panel-body">
+                            <div class="contact-list">
+                                <a href="mailto:support@usehomiapp.com"><i class="fa-solid fa-envelope"></i>support@usehomiapp.com</a>
+                                <a href="https://usehomiapp.com" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i>usehomiapp.com</a>
+                                <a href="Messages.html"><i class="fa-regular fa-message"></i>Send us a message</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="version">HOMI &copy; 2026</p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script>
+    const $ = id => document.getElementById(id);
+
+    /* safe localStorage helpers */
+    const store = {
+        get(key, fallback) {
+            try {
+                const v = localStorage.getItem(key);
+                return v === null ? fallback : v;
+            } catch (e) {
+                return fallback;
+            }
+        },
+        set(key, value) {
+            try {
+                localStorage.setItem(key, value);
+            } catch (e) {}
+        }
+    };
+
+    /* =========================================
+       DARK / LIGHT MODE
+    ========================================= */
+
+    function syncThemeUI() {
+        const dark = document.documentElement.getAttribute("data-theme") === "dark";
+
+        $("themeSwitch").classList.toggle("on", dark);
+        $("themeToggle").setAttribute("aria-checked", String(dark));
+        $("themeLabel").textContent = dark ? "Dark mode is on" : "Light mode is on";
+        $("themeIcon").className = "fa-solid " + (dark ? "fa-sun" : "fa-moon");
+    }
+
+    $("themeToggle").addEventListener("click", () => {
+        const dark = document.documentElement.getAttribute("data-theme") === "dark";
+        const next = dark ? "light" : "dark";
+
+        if (window.HomiTheme) {
+            HomiTheme.set(next);          /* shared: every page follows */
+        } else {
+            if (next === "dark") document.documentElement.setAttribute("data-theme", "dark");
+            else document.documentElement.removeAttribute("data-theme");
+            store.set("homi-theme", next);
+        }
+
+        syncThemeUI();
+    });
+
+    document.addEventListener("homi-theme", syncThemeUI);
+    syncThemeUI();
+
+    /* =========================================
+       EXPANDING ROWS (Settings, About, Contact)
+    ========================================= */
+
+    document.querySelectorAll("[data-row]").forEach(row => {
+        const head = row.querySelector(".row-head");
+
+        head.addEventListener("click", () => {
+            const open = !row.classList.contains("open");
+
+            document.querySelectorAll("[data-row].open").forEach(r => {
+                r.classList.remove("open");
+                r.querySelector(".row-head").setAttribute("aria-expanded", "false");
+            });
+
+            if (open) {
+                row.classList.add("open");
+                head.setAttribute("aria-expanded", "true");
+            }
+        });
+    });
+
+    /* =========================================
+       SETTINGS (saved on this device)
+    ========================================= */
+
+    document.querySelectorAll("select[data-pref]").forEach(select => {
+        const key = select.dataset.pref;
+        const saved = store.get(key, null);
+
+        if (saved) select.value = saved;
+
+        select.addEventListener("change", () => store.set(key, select.value));
+    });
+
+    const notifySwitch = $("notifySwitch");
+
+    function setNotify(on) {
+        notifySwitch.classList.toggle("on", on);
+        notifySwitch.setAttribute("aria-checked", String(on));
+        store.set("homi-notify", on ? "on" : "off");
+    }
+
+    notifySwitch.addEventListener("click", () => {
+        setNotify(!notifySwitch.classList.contains("on"));
+    });
+
+    setNotify(store.get("homi-notify", "on") === "on");
+
+    /* =========================================
+       HERO VIDEO ROTATION
+    ========================================= */
+
+    const heroVideos = Array.from(document.querySelectorAll(".hero-video"));
+    let currentVideo = 0;
+
+    function showHeroVideo(index) {
+        heroVideos.forEach((v, i) => {
+            v.classList.toggle("active", i === index);
+            if (i !== index) {
+                v.pause();
+                v.currentTime = 0;
+            }
+        });
+
+        heroVideos[index].currentTime = 0;
+        heroVideos[index].play().catch(() => {});
+    }
+
+    if (heroVideos.length) {
+        showHeroVideo(0);
+
+        setInterval(() => {
+            currentVideo = (currentVideo + 1) % heroVideos.length;
+            showHeroVideo(currentVideo);
+        }, 10000);
+    }
+</script>
+</body>
+</html>

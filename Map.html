@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>HOMI | Map Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0875e1;
+            --primary-dark: #0561bd;
+            --light: #eef6ff;
+            --text: #172033;
+            --muted: #6b7280;
+            --border: #e3e8ef;
+            --bg: #f5f8fc;
+            --navy: #14214f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        :focus-visible {
+            outline: 3px solid rgba(8,117,225,.45);
+            outline-offset: 2px;
+        }
+
+
+
+        .btn {
+            height: 40px;
+            padding: 0 17px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text);
+            transition: .2s;
+        }
+
+        .btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn.solid {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .btn.solid:hover {
+            background: var(--primary-dark);
+            color: #fff;
+        }
+
+        .hero {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            min-height: 420px;
+            color: #fff;
+            padding: 26px 5% 120px;
+            border-radius: 0 0 32px 32px;
+            background: #075fbd;
+        }
+
+        .hero-video-container {
+            position: absolute;
+            inset: 0;
+            z-index: -3;
+            overflow: hidden;
+            background: #062f5f;
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.02);
+            transition: opacity 1s ease,transform 10s ease;
+            pointer-events: none;
+        }
+
+        .hero-video.active {
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background: linear-gradient(90deg,rgba(2,25,58,.88) 0%,rgba(4,62,122,.68) 45%,rgba(8,117,225,.34) 100%);
+        }
+
+        .hero-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            animation: rise .7s ease both;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px,5vw,54px);
+            line-height: 1.06;
+            letter-spacing: -1.4px;
+        }
+
+        .hero p {
+            margin-top: 12px;
+            max-width: 520px;
+            line-height: 1.6;
+            color: rgba(255,255,255,.86);
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .hero-inner {
+            max-width: 1500px;
+        }
+
+        .hero-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            max-width: 1500px;
+            margin: 0 auto 52px;
+            position: relative;
+        }
+
+        .hero-logo {
+            display: block;
+            padding: 10px 18px;
+            background: rgba(255,255,255,.96);
+            border-radius: 22px;
+            box-shadow: 0 14px 34px rgba(0,0,0,.3);
+            animation: logoFloat 4.5s ease-in-out infinite;
+        }
+
+        .hero-logo:hover {
+            animation-play-state: paused;
+        }
+
+        .hero-logo img {
+            display: block;
+            width: 156px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        @keyframes logoFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 6px;
+        }
+
+        .hero-actions .btn {
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-actions .btn:not(.solid) {
+            background: rgba(255,255,255,.14);
+            border-color: rgba(255,255,255,.4);
+            color: #fff;
+        }
+
+        .hero-actions .btn:not(.solid):hover {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .hero-actions .btn.solid {
+            background: #fff;
+            border-color: #fff;
+            color: var(--primary);
+        }
+
+        .hero-actions .btn.solid:hover {
+            background: var(--light);
+            color: var(--primary-dark);
+        }
+
+        @media(max-width:650px) {
+            .hero-top {
+                margin-bottom: 38px;
+            }
+            .hero-logo {
+                padding: 8px 14px;
+                border-radius: 18px;
+            }
+            .hero-logo img {
+                width: 118px;
+                height: 60px;
+            }
+            .hero-actions .btn {
+                height: 40px;
+                padding: 0 14px;
+            }
+        }
+
+
+        .page {
+            max-width: 1500px;
+            margin: -58px auto 0;
+            padding: 0 4% 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .toolbar {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 18px 45px rgba(23,32,51,.12);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search {
+            flex: 1;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 16px;
+            background: #eef1f5;
+            border-radius: 12px;
+        }
+
+        .search:focus-within {
+            box-shadow: 0 0 0 2px rgba(8,117,225,.4);
+        }
+
+        .search i {
+            color: var(--muted);
+        }
+
+        .search input {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            border: none;
+            background: transparent;
+            outline: none;
+            font: inherit;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .tool {
+            height: 54px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            transition: .2s;
+        }
+
+        .tool.ghost {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .tool.ghost:hover {
+            background: #dcecff;
+        }
+
+        .tool.dark {
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .tool.dark:hover {
+            background: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .chip {
+            height: 38px;
+            padding: 0 16px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: #fff;
+            color: var(--text);
+            font-size: 13.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            transition: .2s;
+        }
+
+        .chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .chip.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: #fff;
+        }
+
+        .chip small {
+            opacity: .65;
+            font-weight: 600;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 18px;
+            margin-top: 18px;
+            height: 690px;
+        }
+
+        .list {
+            overflow-y: auto;
+            padding-right: 6px;
+            display: grid;
+            gap: 12px;
+            align-content: start;
+            scrollbar-width: thin;
+        }
+
+        .list-head {
+            font-size: 13px;
+            color: var(--muted);
+            padding: 2px 4px;
+        }
+
+        .list-head strong {
+            color: var(--text);
+        }
+
+        .card {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-align: left;
+            transition: .2s;
+        }
+
+        .card:hover {
+            border-color: rgba(8,117,225,.4);
+        }
+
+        .card.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(8,117,225,.16);
+        }
+
+        .card img {
+            width: 104px;
+            height: 104px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .tag {
+            align-self: flex-start;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--light);
+            padding: 3px 9px;
+            border-radius: 6px;
+        }
+
+        .card h3 {
+            font-size: 15.5px;
+            margin: 7px 0 3px;
+        }
+
+        .card .loc {
+            font-size: 13px;
+            color: var(--muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card .loc i {
+            color: var(--primary);
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .card .price {
+            margin-top: auto;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .card .price small {
+            font-weight: 500;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .empty {
+            padding: 34px 18px;
+            text-align: center;
+            color: var(--muted);
+            background: #fff;
+            border: 1px dashed var(--border);
+            border-radius: 16px;
+            line-height: 1.6;
+        }
+
+        .empty strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .map-wrap {
+            position: relative;
+            min-height: 420px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 45px rgba(23,32,51,.12);
+            background: #dfe7ef;
+        }
+
+        #map {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-loading {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+            display: grid;
+            place-content: center;
+            justify-items: center;
+            gap: 12px;
+            color: var(--muted);
+            background: linear-gradient(135deg,#eef3f8,#dce5ef);
+            transition: opacity .4s;
+        }
+
+        .map-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .map-loading i {
+            font-size: 30px;
+            color: var(--primary);
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            50% {
+                transform: scale(1.18);
+                opacity: .6;
+            }
+        }
+
+        .floating-message {
+            position: fixed;
+            right: 22px;
+            bottom: calc(22px + env(safe-area-inset-bottom,0px));
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-size: 23px;
+            text-decoration: none;
+            z-index: 1200;
+            box-shadow: 0 10px 28px rgba(8,117,225,.38);
+            transition: .25s;
+        }
+
+        .floating-message:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        @media(min-width:901px) {
+            .page {
+                padding-left: max(4%,104px);
+            }
+        }
+
+        @media(max-width:1000px) {
+            .layout {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            .map-wrap {
+                order: -1;
+                height: 460px;
+            }
+            .list {
+                overflow: visible;
+                padding: 0;
+            }
+        }
+
+        @media(max-width:650px) {
+            .search-row {
+                flex-wrap: wrap;
+            }
+            .search {
+                flex: 1 1 100%;
+            }
+            .tool {
+                flex: 1;
+                justify-content: center;
+                height: 48px;
+            }
+            .map-wrap {
+                height: 400px;
+                border-radius: 18px;
+            }
+            .card img {
+                width: 88px;
+                height: 88px;
+            }
+            .floating-message {
+                width: 54px;
+                height: 54px;
+                right: 16px;
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="theme.css">
+    <script src="nav.js"></script>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-video-container">
+        <video class="hero-video active" muted playsinline poster="./assets/image4.jpg"><source src="./assets/video1.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image5.jpg"><source src="./assets/video2.mp4" type="video/mp4"></video>
+        <video class="hero-video" muted playsinline poster="./assets/image6.jpg"><source src="./assets/video3.mp4" type="video/mp4"></video>
+    </div>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-top">
+        <a href="LandingPage.html" class="hero-logo" aria-label="HOMI home"><img src="logo.png" alt="HOMI"></a>
+        <div class="hero-actions">
+            <button class="btn" onclick="location.href='Login.html'">Sign in</button>
+            <button class="btn solid" onclick="location.href='CreateAccount.html'">Sign up</button>
+        </div>
+    </div>
+
+    <div class="hero-inner">
+        <h1>See what's available, street by street.</h1>
+        <p>Browse homes, short-lets and hotels on the map. Tap a listing to see where it is.</p>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="toolbar">
+        <div class="search-row">
+            <label class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="mapSearchInput" placeholder="Search a listing or place, e.g. Woji" autocomplete="off">
+            </label>
+            <button class="tool ghost" id="locateButton"><i class="fa-solid fa-location-crosshairs"></i>Near me</button>
+            <button class="tool dark" id="routeButton"><i class="fa-solid fa-route"></i>Directions</button>
+        </div>
+        <div class="chips" id="chips">
+            <button class="chip active" data-type="all">All</button>
+            <button class="chip" data-type="rent">Rent</button>
+            <button class="chip" data-type="buy">Buy</button>
+            <button class="chip" data-type="short-let">Short-let</button>
+            <button class="chip" data-type="hotel">Hotels</button>
+        </div>
+    </section>
+
+    <section class="layout">
+        <div class="list" id="list" aria-live="polite"></div>
+        <div class="map-wrap">
+            <iframe id="map" title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            <div class="map-loading" id="mapLoading"><i class="fa-solid fa-location-dot"></i><span>Loading map...</span></div>
+        </div>
+    </section>
+
+</main>
+
+<a href="Messages.html" class="floating-message" title="Messages" aria-label="Messages"><i class="fa-regular fa-message"></i></a>
+
+<script>
+const $ = id => document.getElementById(id);
+
+/* DATA - replace coordinates with each property's real location */
+const listings = [
+  {id:1, title:"Single room self con.",  area:"Rumuola, Port Harcourt",    price:450000,  per:"year",  type:"rent",      img:"./assets/image9.jpg", pos:[4.8230,7.0090]},
+  {id:2, title:"Modern self con.",       area:"GRA Phase 2, Port Harcourt", price:650000,  per:"year",  type:"rent",      img:"./assets/image8.jpg", pos:[4.8080,7.0210]},
+  {id:3, title:"One bedroom apartment",  area:"Woji, Port Harcourt",        price:850000,  per:"year",  type:"rent",      img:"./assets/image7.jpg", pos:[4.8050,7.0700]},
+  {id:4, title:"Two bedroom apartment",  area:"Eliozu, Port Harcourt",      price:1200000, per:"year",  type:"rent",      img:"./assets/image6.jpg", pos:[4.8700,7.0620]},
+  {id:5, title:"Serviced short-let",     area:"Trans-Amadi, Port Harcourt", price:60000,   per:"night", type:"short-let", img:"./assets/image5.jpg", pos:[4.8180,7.0480]},
+  {id:6, title:"Four bedroom duplex",    area:"Rumuokoro, Port Harcourt",   price:85000000,per:"",      type:"buy",       img:"./assets/image4.jpg", pos:[4.8760,7.0170]},
+  {id:7, title:"City centre hotel room", area:"Old GRA, Port Harcourt",     price:45000,   per:"night", type:"hotel",     img:"./assets/image3.jpg", pos:[4.7940,7.0150]}
+];
+const labels = {rent:"For Rent", buy:"For Sale", "short-let":"Short-let", hotel:"Hotel"};
+const fmt = n => "₦" + n.toLocaleString("en-NG");
+const short = n => n >= 1e6 ? "₦" + parseFloat((n/1e6).toFixed(2)) + "M" : "₦" + Math.round(n/1e3) + "k";
+
+/* =========================================
+           MAP (Google Maps embed - no API key needed)
+        ========================================= */
+        const mapFrame = $("map");
+        const loadingBox = $("mapLoading");
+        let activeType = "all";
+        let query = "";
+        let selected = null;
+
+        function showOnMap(place, zoom = 13) {
+            loadingBox.classList.remove("hidden");
+            mapFrame.src = "https://maps.google.com/maps?q=" + encodeURIComponent(place) + "&z=" + zoom + "&output=embed";
+        }
+
+        mapFrame.addEventListener("load", () => loadingBox.classList.add("hidden"));
+
+        function render() {
+            const q = query.toLowerCase();
+
+            const shown = listings.filter(l =>
+                (activeType === "all" || l.type === activeType) &&
+                (!q || (l.title + " " + l.area).toLowerCase().includes(q))
+            );
+
+            $("list").innerHTML = shown.length
+                ? `<div class="list-head"><strong>${shown.length}</strong> ${shown.length === 1 ? "listing" : "listings"}. Tap one to see it on the map.</div>` +
+                  shown.map(l => `
+                    <button class="card${l.id === selected ? " active" : ""}" data-id="${l.id}">
+                        <img src="${l.img}" alt="${l.title}" loading="lazy">
+                        <div class="card-body">
+                            <span class="tag">${labels[l.type]}</span>
+                            <h3>${l.title}</h3>
+                            <p class="loc"><i class="fa-solid fa-location-dot"></i>${l.area}</p>
+                            <p class="price">${fmt(l.price)} <small>${l.per ? "/ " + l.per : ""}</small></p>
+                        </div>
+                    </button>`).join("")
+                : `<div class="empty"><strong>No listings found</strong>Try another area or clear the filter. Press Enter to search the map for "${query}".</div>`;
+
+            document.querySelectorAll(".chip").forEach(c => {
+                const t = c.dataset.type;
+                const n = listings.filter(l => t === "all" || l.type === t).length;
+                if (!c.querySelector("small")) c.insertAdjacentHTML("beforeend", ` <small>${n}</small>`);
+            });
+        }
+
+        function select(id) {
+            selected = id;
+            const l = listings.find(x => x.id === id);
+            document.querySelectorAll(".card").forEach(c => c.classList.toggle("active", +c.dataset.id === id));
+            showOnMap(l.pos[0] + "," + l.pos[1] + " (" + l.title + ")", 16);
+        }
+
+        $("list").addEventListener("click", e => {
+            const c = e.target.closest(".card");
+            if (c) select(+c.dataset.id);
+        });
+
+        /* FILTER CHIPS */
+        $("chips").addEventListener("click", e => {
+            const c = e.target.closest(".chip");
+            if (!c) return;
+            document.querySelectorAll(".chip").forEach(x => x.classList.toggle("active", x === c));
+            activeType = c.dataset.type;
+            selected = null;
+            render();
+        });
+
+        /* SEARCH: typing filters listings, Enter searches the map */
+        $("mapSearchInput").addEventListener("input", e => {
+            query = e.target.value.trim();
+            selected = null;
+            render();
+        });
+
+        $("mapSearchInput").addEventListener("keydown", e => {
+            if (e.key === "Enter" && query) showOnMap(query + ", Nigeria", 14);
+        });
+
+        /* NEAR ME */
+        $("locateButton").onclick = () => {
+            if (!navigator.geolocation) return;
+            navigator.geolocation.getCurrentPosition(
+                pos => showOnMap(pos.coords.latitude + "," + pos.coords.longitude, 15),
+                () => alert("Couldn't get your location. Allow location access in your browser and try again.")
+            );
+        };
+
+        /* DIRECTIONS (opens Google Maps) */
+        $("routeButton").onclick = () => {
+            const l = listings.find(x => x.id === selected);
+            const dest = l ? l.pos.join(",") : query ? query + ", Nigeria" : "";
+
+            if (!dest) {
+                alert("Pick a listing or search for a place first.");
+                $("mapSearchInput").focus();
+                return;
+            }
+
+            window.open("https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(dest), "_blank");
+        };
+
+        /* =========================================
+           HERO VIDEO ROTATION (same as home page)
+        ========================================= */
+        const heroVideos = Array.from(document.querySelectorAll(".hero-video"));
+        let currentHeroVideo = 0;
+
+        function showHeroVideo(index) {
+            heroVideos.forEach((video, i) => {
+                video.classList.toggle("active", i === index);
+                if (i !== index) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+            heroVideos[index].currentTime = 0;
+            heroVideos[index].play().catch(() => {});
+        }
+
+        if (heroVideos.length) {
+            showHeroVideo(0);
+            setInterval(() => {
+                currentHeroVideo = (currentHeroVideo + 1) % heroVideos.length;
+                showHeroVideo(currentHeroVideo);
+            }, 10000);
+        }
+
+        /* START */
+        render();
+        showOnMap("Port Harcourt, Nigeria", 12);
+    </script>
+</body>
+</html>
