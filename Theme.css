@@ -40,7 +40,7 @@ html[data-theme="dark"] ::selection {
 }
 
 
-/* ===== LandingPage.html ===== */
+/* ===== index.html (home page) ===== */
 
 :where(html[data-theme="dark"][data-page="landingpage"]) body {
     background: radial-gradient(circle at 8% 15%, rgba(8,117,225,.10), transparent 25%),

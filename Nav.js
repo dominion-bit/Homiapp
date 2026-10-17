@@ -96,7 +96,7 @@
 
 (function () {
     var links = [
-        { href: "LandingPage.html", icon: "fa-house", label: "Home", regular: false },
+        { href: "index.html", icon: "fa-house", label: "Home", regular: false },
         { href: "Map.html", icon: "fa-map-location-dot", label: "Map", regular: false },
         { href: "Saved.html", icon: "fa-heart", label: "Saved", regular: true },
         { href: "Messages.html", icon: "fa-message", label: "Messages", regular: true },
@@ -104,7 +104,7 @@
     ];
 
     var file = (location.pathname.split("/").pop() || "").toLowerCase();
-    if (file === "" || file === "index.html") file = "landingpage.html";
+    if (file === "") file = "index.html";
 
     var css = `        .homi-nav {
             position: fixed;

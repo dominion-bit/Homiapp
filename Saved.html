@@ -494,6 +494,349 @@
             }
         }
 
+    
+    /* =========================================
+   FOOTER
+========================================= */
+.site-footer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 80px 5% 34px;
+    background: linear-gradient(180deg, #0d1a2d 0%, #08121f 100%);
+    color: #9fb3cc;
+    border-radius: 36px 36px 0 0;
+}
+
+.footer-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* drifting glows */
+.footer-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: -1;
+    animation: footerGlow 14s ease-in-out infinite alternate;
+}
+
+.glow-one {
+    width: 420px; height: 420px;
+    top: -140px; left: -120px;
+    background: rgba(8,117,225,.28);
+}
+
+.glow-two {
+    width: 380px; height: 380px;
+    bottom: -140px; right: -100px;
+    background: rgba(92,90,255,.20);
+    animation-delay: -6s;
+}
+
+@keyframes footerGlow {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(50px,-40px,0) scale(1.15); }
+}
+
+/* floating particles */
+.footer-dot {
+    position: absolute;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(105,181,255,.55);
+    pointer-events: none;
+    z-index: -1;
+    animation: dotRise 9s ease-in-out infinite;
+}
+.fd-1 { left: 12%; bottom: 18%; }
+.fd-2 { left: 38%; bottom: 8%;  animation-delay: -3s; width: 4px; height: 4px; }
+.fd-3 { left: 66%; bottom: 20%; animation-delay: -5s; }
+.fd-4 { left: 88%; bottom: 10%; animation-delay: -7s; width: 3px; height: 3px; }
+
+@keyframes dotRise {
+    0%, 100% { transform: translateY(0);     opacity: .2; }
+    50%      { transform: translateY(-70px); opacity: .9; }
+}
+
+/* CTA strip */
+.footer-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 30px 34px;
+    margin-bottom: 64px;
+    border-radius: 22px;
+    background: linear-gradient(120deg, #0875e1 0%, #4b78ff 100%);
+    box-shadow: 0 20px 50px rgba(8,117,225,.28);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-cta::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.22), transparent);
+    transform: skewX(-20deg);
+    animation: ctaShine 5s ease-in-out infinite;
+}
+
+@keyframes ctaShine {
+    0%   { left: -60%; }
+    60%, 100% { left: 130%; }
+}
+
+.footer-cta h3 { color: #fff; font-size: 24px; margin-bottom: 6px; letter-spacing: -.3px; }
+.footer-cta p  { color: rgba(255,255,255,.85); font-size: 14px; }
+
+.footer-cta-btn {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 50px;
+    padding: 0 26px;
+    border-radius: 12px;
+    background: #fff;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    transition: .25s ease;
+}
+
+.footer-cta-btn:hover { gap: 15px; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.2); }
+
+/* main grid */
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 50px;
+    padding-bottom: 50px;
+}
+
+/* BIG ANIMATED LOGO */
+.footer-logo-wrap {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 22px;
+    animation: logoFloat 5s ease-in-out infinite;
+}
+
+.logo-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    padding: 5px;
+    background: conic-gradient(from 0deg, #0875e1, #69b5ff, #5c5aff, transparent 70%, #0875e1);
+    animation: logoSpin 6s linear infinite;
+    box-shadow: 0 0 40px rgba(8,117,225,.45);
+}
+
+/* keep the logo upright while the ring spins */
+.footer-logo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    background: #dbeafe;
+    animation: logoSpin 6s linear infinite reverse;
+}
+
+.logo-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(105,181,255,.55);
+    animation: logoPulse 3s ease-out infinite;
+}
+.logo-pulse.delay { animation-delay: 1.5s; }
+
+.footer-logo-wrap:hover .logo-ring {
+    box-shadow: 0 0 60px rgba(105,181,255,.75);
+}
+
+@keyframes logoSpin  { to { transform: rotate(360deg); } }
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+}
+
+@keyframes logoPulse {
+    0%   { transform: scale(1);   opacity: .8; }
+    100% { transform: scale(1.7); opacity: 0; }
+}
+
+.footer-brand-name {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 34px;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -.5px;
+}
+
+.footer-about {
+    max-width: 330px;
+    font-size: 14.5px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.footer-contact { list-style: none; display: grid; gap: 10px; }
+
+.footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.footer-contact i { color: #69b5ff; width: 16px; }
+
+/* columns */
+.footer-col h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    position: relative;
+}
+
+.footer-col h4::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 28px; height: 3px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--primary), #69b5ff);
+    transition: width .35s ease;
+}
+
+.footer-col:hover h4::after { width: 52px; }
+
+.footer-col ul { list-style: none; display: grid; gap: 4px; }
+
+.footer-col a {
+    position: relative;
+    display: inline-block;
+    padding: 6px 0;
+    color: #8ea6c4;
+    font-size: 14.5px;
+    text-decoration: none;
+    transition: color .25s ease, transform .25s ease;
+}
+
+/* underline that slides in */
+.footer-col a::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 2px;
+    width: 0; height: 1.5px;
+    background: #69b5ff;
+    transition: width .3s ease;
+}
+
+.footer-col a:hover { color: #fff; transform: translateX(6px); }
+.footer-col a:hover::after { width: 100%; }
+
+/* bottom bar */
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(159,179,204,.16);
+}
+
+.footer-bottom p { font-size: 13.5px; }
+
+.footer-socials { display: flex; align-items: center; gap: 10px; }
+
+.footer-socials a,
+.back-to-top {
+    width: 40px; height: 40px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(159,179,204,.12);
+    color: #b7c8de;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+    text-decoration: none;
+    transition: .3s ease;
+}
+
+.footer-socials a:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-5px) rotate(-6deg);
+    box-shadow: 0 10px 22px rgba(8,117,225,.4);
+}
+
+.back-to-top { margin-left: 8px; background: rgba(8,117,225,.22); color: #69b5ff; }
+
+.back-to-top:hover {
+    background: #fff;
+    color: var(--primary);
+    transform: translateY(-5px);
+}
+
+.back-to-top i { animation: arrowBob 1.8s ease-in-out infinite; }
+
+@keyframes arrowBob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+}
+
+/* responsive */
+@media (max-width: 950px) {
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 42px 30px; }
+    .footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 650px) {
+    .site-footer { padding: 60px 5% 28px; border-radius: 26px 26px 0 0; }
+    .footer-cta { flex-direction: column; align-items: flex-start; padding: 26px 22px; margin-bottom: 46px; }
+    .footer-cta-btn { width: 100%; justify-content: center; }
+    .footer-logo-wrap { width: 120px; height: 120px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 420px) {
+    .footer-top { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-logo-wrap, .logo-ring, .footer-logo, .logo-pulse,
+    .footer-glow, .footer-dot, .footer-cta::after, .back-to-top i {
+        animation: none;
+    }
+}
+
+
+    /* keep footer content clear of the left navigation on desktop */
+    @media (min-width: 901px) {
+        .site-footer {
+            padding-left: max(5%, 104px);
+        }
+    }
     </style>
     <link rel="stylesheet" href="theme.css">
     <script src="nav.js"></script>
@@ -508,9 +851,9 @@
     </div>
     <div class="hero-video-overlay"></div>
     <div class="hero-top">
-        <a href="LandingPage.html" class="hero-logo" aria-label="HOMI home"><img src="logo.png" alt="HOMI"></a>
+        <a href="index.html" class="hero-logo" aria-label="HOMI home"><img src="logo.png" alt="HOMI"></a>
         <div class="hero-actions">
-            <button class="btn" onclick="location.href='Login.html'">Sign in</button>
+            <button class="btn" onclick="location.href='sign-in.html'">Sign in</button>
             <button class="btn solid" onclick="location.href='CreateAccount.html'">Sign up</button>
         </div>
     </div>
@@ -529,7 +872,7 @@
             <h2>Sign in to see your saved listings</h2>
             <p>Create an account to keep track of the places you like and find them again on any device.</p>
             <div class="gate-actions">
-                <button class="btn solid" onclick="location.href='Login.html'">Sign in</button>
+                <button class="btn solid" onclick="location.href='sign-in.html'">Sign in</button>
                 <button class="btn" onclick="location.href='CreateAccount.html'">Create account</button>
             </div>
         </div>
@@ -557,6 +900,121 @@
     </section>
 
 </main>
+
+<footer class="site-footer">
+
+    <div class="footer-glow glow-one"></div>
+    <div class="footer-glow glow-two"></div>
+
+    <span class="footer-dot fd-1"></span>
+    <span class="footer-dot fd-2"></span>
+    <span class="footer-dot fd-3"></span>
+    <span class="footer-dot fd-4"></span>
+
+    <div class="footer-container">
+
+        <!-- CTA STRIP -->
+        <div class="footer-cta">
+            <div>
+                <h3>Ready to find your next home?</h3>
+                <p>Browse homes, short-lets and hotels across Nigeria.</p>
+            </div>
+            <a href="Map.html" class="footer-cta-btn">
+                Start exploring
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- MAIN GRID -->
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="footer-logo-wrap" aria-label="HOMI home">
+                    <span class="logo-pulse"></span>
+                    <span class="logo-pulse delay"></span>
+                    <span class="logo-ring">
+                        <img src="./assets/Logo2.0.png" alt="HOMI" class="footer-logo">
+                    </span>
+                </a>
+
+                <h3 class="footer-brand-name">Homi</h3>
+
+                <p class="footer-about">
+                    Your one-stop hub for hotels, property buying, selling and renting.
+                    Connecting people with spaces they love.
+                </p>
+
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-envelope"></i> hello@usehomiapp.com</li>
+                    <li><i class="fa-solid fa-location-dot"></i> Port Harcourt, Nigeria</li>
+                </ul>
+
+            </div>
+
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="#">Hotels &amp; Stays</a></li>
+                    <li><a href="#">Buy Property</a></li>
+                    <li><a href="#">Rent a Home</a></li>
+                    <li><a href="#">Sell Property</a></li>
+                    <li><a href="#">For Investors</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Partners</h4>
+                <ul>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">Real Estate Agents</a></li>
+                    <li><a href="#">Developers</a></li>
+                    <li><a href="#">Become a Partner</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Homi</a></li>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Enquire Now</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM BAR -->
+        <div class="footer-bottom">
+
+            <p>© 2026 Homi. All rights reserved. | usehomiapp.com</p>
+
+            <div class="footer-socials">
+                <a href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" title="YouTube" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                <button type="button" id="backToTop" class="back-to-top" title="Back to top" aria-label="Back to top">
+                    <i class="fa-solid fa-arrow-up"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<script>
+    (function () {
+        const btn = document.getElementById("backToTop");
+        if (!btn) return;
+        btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    })();
+</script>
+
 
 <script>
     const heroVideos = Array.from(document.querySelectorAll(".hero-video"));
