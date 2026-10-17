@@ -217,7 +217,23 @@
                 padding-bottom: 96px;
             }
             .floating-message {
-                bottom: calc(92px + env(safe-area-inset-bottom,0px))!important;
+                display: none!important;
+            }
+            .homi-nav {
+                width: calc(100% - 24px);
+                max-width: 420px;
+                justify-content: space-around;
+                padding: 6px;
+                border-radius: 22px;
+            }
+            .homi-nav-item {
+                flex: 1;
+                width: auto;
+                height: 44px;
+            }
+            .homi-nav-item.active::before {
+                left: 50%;
+                margin-left: -10px;
             }
         }
 

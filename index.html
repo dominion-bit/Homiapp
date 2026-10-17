@@ -398,11 +398,8 @@ body::after {
 
         .hero-logo {
             display: block;
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, .96);
-            border-radius: 22px;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, .3);
             animation: logoFloat 4.5s ease-in-out infinite;
+            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .35));
         }
 
         .hero-logo:hover {
@@ -461,7 +458,6 @@ body::after {
 
         @media (max-width: 650px) {
             .hero-top { padding: 22px 0 0; }
-            .hero-logo { padding: 8px 14px; border-radius: 18px; }
             .hero-logo img { width: 118px; height: 60px; }
             .hero-actions .sign-in-button,
             .hero-actions .sign-up-button { height: 40px; padding: 0 14px; }
@@ -2272,7 +2268,7 @@ body::after {
         @media (max-width: 650px) {
 
             .hero-section {
-                min-height: 720px;
+                min-height: 0;
 
                 border-radius:
                     0 0 25px 25px;
