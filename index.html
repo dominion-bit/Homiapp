@@ -2991,7 +2991,499 @@ body::after {
         }
     }
     </style>
-    <link rel="stylesheet" href="theme.css">
+    <style id="homi-theme-css">
+/* =========================================
+   HOMI DARK THEME (shared by every page)
+   Add to <head> after your page <style>:
+       <link rel="stylesheet" href="theme.css">
+   nav.js sets  data-theme="dark"  and  data-page="..."  on <html>.
+   New components: use var(--text), var(--bg), var(--border) etc.
+   so they follow the theme automatically.
+========================================= */
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --text: #e8eefb;
+    --muted: #94a3b8;
+    --border: #25324a;
+    --bg: #0b1220;
+    --page-bg: #0b1220;
+    --light: #14263f;
+    --light-blue: #14263f;
+    --navy: #1f6fd1;
+}
+
+html[data-theme="dark"] .homi-nav {
+    background: rgba(17, 27, 46, .94);
+    border-color: #25324a;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, .5);
+}
+
+html[data-theme="dark"] .homi-nav-item {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .homi-nav-item:hover,
+html[data-theme="dark"] .homi-nav-item.active {
+    background: #14263f;
+    color: #5aaaf5;
+}
+
+html[data-theme="dark"] ::selection {
+    background: rgba(59, 155, 255, .35);
+}
+
+
+/* ===== index.html (home page) ===== */
+
+:where(html[data-theme="dark"][data-page="landingpage"]) body {
+    background: radial-gradient(circle at 8% 15%, rgba(8,117,225,.10), transparent 25%),
+        radial-gradient(circle at 92% 35%, rgba(75,120,255,.08), transparent 28%),
+        radial-gradient(circle at 50% 85%, rgba(8,117,225,.06), transparent 30%),
+        #0b1220;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .navbar {
+    background: rgba(17,27,46,0.96);
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .nav-icon {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .nav-icon:hover {
+    background: #14263f;
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .notification-dot {
+    border: 2px solid #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .sign-in-button {
+    border: 1px solid #25324a;
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .sign-in-button:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .search-box {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .search-box input::placeholder {
+    color: #7c8aa3;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .filter-button {
+    background: #111b2e;
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .filter-button:hover {
+    background: #1a3253;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .filter-panel {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .filter-field label {
+    color: #cbd5e1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .filter-field select,
+:where(html[data-theme="dark"][data-page="landingpage"]) .smart-box,
+:where(html[data-theme="dark"][data-page="landingpage"]) .id-box {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .smart-box input::placeholder,
+:where(html[data-theme="dark"][data-page="landingpage"]) .id-box input::placeholder {
+    color: #7c8aa3;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .smart-btn {
+    background: #1f6fd1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .id-box i {
+    color: #7c8aa3;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .reset-btn {
+    background: #1f6fd1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .chip {
+    border: 1px solid #25324a;
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .chip:hover,
+:where(html[data-theme="dark"][data-page="landingpage"]) .chip.active {
+    background: #1f6fd1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-card:hover {
+    background: #111b2e;
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .side-menu {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .close-menu {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .menu-link:hover,
+:where(html[data-theme="dark"][data-page="landingpage"]) .menu-link.active {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .menu-link:hover i,
+:where(html[data-theme="dark"][data-page="landingpage"]) .menu-link.active i {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .regions-section {
+    background: linear-gradient(
+                    180deg,
+                    #111b2e 0%,
+                    #0d1626 100%
+                );
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .slider-button {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .nearby-section {
+    background: linear-gradient(
+                    180deg,
+                    #0f192b 0%,
+                    #0d1626 50%,
+                    #0f192b 100%
+                );
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .see-all {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .see-all:hover {
+    color: #7bbcf8;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .nearby-slider-button {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-listing {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-image {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-status {
+    background: #111b2e;
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .favourite-button {
+    background: #111b2e;
+    color: #cbd5e1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-location i {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .property-price {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .explore-map-button {
+    background: #1f6fd1;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .explore-map-button:hover {
+    background: #1a5db4;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .faq-section {
+    background: radial-gradient(circle at 8% 15%, rgba(8,117,225,.09), transparent 25%),
+                radial-gradient(circle at 92% 80%, rgba(92,90,255,.07), transparent 28%),
+                linear-gradient(180deg, #111b2e 0%, #0d1626 100%);
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .faq-label {
+    background: #14263f;
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .faq-item {
+    background: rgba(17,27,46,0.92);
+    border: 1px solid #25324a;
+}
+
+:where(html[data-theme="dark"][data-page="landingpage"]) .faq-question i {
+    background: #14263f;
+    color: #5aaaf5;
+}
+
+
+/* ===== Map.html ===== */
+
+:where(html[data-theme="dark"][data-page="map"]) .btn {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .btn:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .toolbar {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .search {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .tool.ghost {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .tool.ghost:hover {
+    background: #1a3253;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .chip {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .chip:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .card {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .card img {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .tag {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .card .loc i {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .card .price {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .empty {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .map-wrap {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .map-loading {
+    background: linear-gradient(135deg,#16233a,#1a2740);
+}
+
+:where(html[data-theme="dark"][data-page="map"]) .map-loading i {
+    color: #5aaaf5;
+}
+
+
+/* ===== Saved.html ===== */
+
+:where(html[data-theme="dark"][data-page="saved"]) .btn {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .btn:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .gate {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .gate-icon {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .demo-card {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .demo-card img {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .demo-card .heart {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .demo-body em {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .perk {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="saved"]) .perk i {
+    color: #5aaaf5;
+}
+
+
+/* ===== Messages.html ===== */
+
+:where(html[data-theme="dark"][data-page="messages"]) .btn {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .btn:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .inbox {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .search {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .tab {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .tab:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .convo:hover {
+    background: #0b1220;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .avatar.online::after {
+    border: 2px solid #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .chat-pane {
+    background: radial-gradient(circle at 90% 8%, rgba(8, 117, 225, .06), transparent 30%),
+                #0d1626;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .chat-head {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .back-btn {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .icon-btn {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .icon-btn:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .listing-ref {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .listing-ref img {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .listing-ref small {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .listing-ref em {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .day {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .msg.them .bubble {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .composer {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .quick button {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .quick button:hover {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .compose-field {
+    background: #1a2740;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .attach:hover {
+    color: #5aaaf5;
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .empty i {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .gate {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .gate-icon {
+    color: #5aaaf5;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .demo-chat {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .perk {
+    background: #111b2e;
+}
+
+:where(html[data-theme="dark"][data-page="messages"]) .perk i {
+    color: #5aaaf5;
+}
+
+/* ===== embedded Google map ===== */
+
+:where(html[data-theme="dark"][data-page="map"]) #map {
+    filter: invert(.92) hue-rotate(180deg) brightness(.95) contrast(.9);
+}
+
+</style>
     <script>
 /*
    HOMI shared navigation + theme.
@@ -3055,6 +3547,12 @@ body::after {
     /* load theme.css LAST in <head> so it always sits after the page's own styles,
        whether or not the page links it itself */
     function attachCss() {
+        var inl = document.getElementById("homi-theme-css");
+        if (inl) {
+            document.head.appendChild(inl);
+            ready();
+            return;
+        }
         var link = document.querySelector('link[href*="theme.css"]');
         if (!link) {
             link = document.createElement("link");
